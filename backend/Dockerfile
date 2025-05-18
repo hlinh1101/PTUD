@@ -2,21 +2,20 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Cài Prisma + ts-node/TypeScript globally
+# Cài prisma, ts-node và typescript toàn cục
 RUN npm install -g prisma ts-node typescript
 
-# Copy và cài dependencies
+# Copy package.json và cài dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy source
+# Copy toàn bộ source
 COPY . .
 
-# Generate Prisma Client
+# Sinh Prisma Client
 RUN prisma generate
 
 EXPOSE 8000
 
-# Thay đổi entrypoint: không cần sửa package.json
-# Chạy file TS bằng ts-node mà không cần script "start"
-CMD ["node", "-r", "ts-node/register", "src/index.ts"]
+# DÙNG loader ESM của ts-node để chạy .ts trực tiếp
+CMD ["node", "--loader", "ts-node/esm", "src/index.ts"]
