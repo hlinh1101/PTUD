@@ -2,18 +2,27 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Bundler", // Hoặc "NodeNext" cũng thường được dùng với module ESNext
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "lib": [
       "ESNext"
     ],
     "types": [
-      "@cloudflare/workers-types"
+      "@cloudflare/workers-types",
+      "node"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "outDir": "./dist",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist" // <--- THÊM HOẶC ĐẢM BẢO DÒNG NÀY CÓ
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": [
+    "src/**/*"
+  ] // <--- Đảm bảo include các file nguồn
 }
