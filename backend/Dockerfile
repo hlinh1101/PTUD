@@ -2,15 +2,21 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
+# Cài prisma CLI (global hoặc dev)
+RUN npm install -g prisma
+
+# Copy package files & cài đặt
 COPY package*.json ./
 RUN npm install
 
-# Copy source code
+# Copy toàn bộ mã nguồn
 COPY . .
 
-# Generate Prisma client
-RUN npx prisma generate
+# ✅ Cấp quyền thực thi nếu cần (nếu bạn dùng local CLI)
+# RUN chmod +x ./node_modules/.bin/prisma
+
+# Generate Prisma Client
+RUN prisma generate
 
 EXPOSE 8000
 
