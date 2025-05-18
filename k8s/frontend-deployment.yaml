@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: hlink/pencraft-frontend:latest
+          image: hlink1101/pencraft-frontend:latest
           ports:
             - containerPort: 5173
           env:
