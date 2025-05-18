@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "npx wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "dev": "wrangler dev src/index.ts",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@akshitlakhera/common-zod-app": "^1.0.0",
