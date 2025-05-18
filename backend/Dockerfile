@@ -17,11 +17,15 @@ RUN npm ci
 # Nếu bạn có file .dockerignore, đảm bảo rằng node_modules được ignore.
 COPY . .
 
-# Cấp quyền thực thi cho Prisma CLI
-# npx sẽ tìm prisma trong /app/node_modules/.bin/prisma
+# Cấp quyền thực thi cho các CLI cần thiết từ node_modules/.bin
 RUN chmod +x /app/node_modules/.bin/prisma
-# Một cách khác, nếu đường dẫn trên không hoạt động hoặc để chắc chắn hơn:
-# RUN if [ -f /app/node_modules/.bin/prisma ]; then chmod +x /app/node_modules/.bin/prisma; fi
+RUN chmod +x /app/node_modules/.bin/tsc
+# Nếu có nhiều công cụ khác trong node_modules/.bin cần quyền thực thi,
+# bạn có thể xem xét một giải pháp tổng quát hơn như:
+# RUN find /app/node_modules/.bin -type f -exec chmod +x {} \;
+# Hoặc đơn giản là:
+# RUN chmod +x /app/node_modules/.bin/*
+# Tuy nhiên, việc cấp quyền cụ thể thường an toàn hơn.
 
 # Sinh Prisma Client
 # Lệnh này sử dụng Prisma CLI đã được cài đặt như một dependency
