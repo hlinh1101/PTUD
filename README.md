@@ -65,16 +65,6 @@ Users can search for posts based on keywords or tags.
 
 Users can delete bookmarks with a confirmation model to prevent accidental deletion.
 
-###
-
-## Image Upload Feature
-
-Working on to supports image uploads, allowing users to enhance their blog posts with images. (Will add it after I get my credit card)
-
-## Add rich text editor
-
-Added jodit editor .
-
 ## Images:
 
 <img width="1710" alt="image" src="https://github.com/user-attachments/assets/f7c0adb4-6e0b-4de2-b914-34a9d3bdd47e">
