@@ -1,23 +1,22 @@
-# backend/Dockerfile
 FROM node:18-alpine
 
 WORKDIR /app
 
-# 1) Cài dependencies
+# 1) Cài prisma, ts-node và typescript globally
+RUN npm install -g prisma ts-node typescript
+
+# 2) Copy và cài dependencies
 COPY package*.json ./
 RUN npm install
 
-# 2) Copy toàn bộ source
+# 3) Copy source
 COPY . .
 
-# 3) Sinh Prisma Client (vẫn giữ bước này nếu bạn dùng Prisma)
+# 4) Sinh Prisma Client
 RUN chmod +x ./node_modules/.bin/prisma && npx prisma generate
 
-# 4) Ép ts-node biên dịch TS → CJS để tránh ERR_REQUIRE_CYCLE_MODULE
-ENV TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}'
-
-# 5) Expose port
+# 5) Expose
 EXPOSE 8000
 
-# 6) Chạy file TS qua ts-node/register (không cần sửa package.json)
+# 6) Chạy TS trực tiếp bằng ts-node/register
 CMD ["node", "-r", "ts-node/register", "src/index.ts"]
