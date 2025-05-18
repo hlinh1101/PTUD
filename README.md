@@ -70,3 +70,7 @@ Users can delete bookmarks with a confirmation model to prevent accidental delet
 <img width="1710" alt="image" src="https://github.com/user-attachments/assets/f7c0adb4-6e0b-4de2-b914-34a9d3bdd47e">
 
 <img width="1710" alt="image" src="https://github.com/user-attachments/assets/4c11eff6-fe58-4304-ab25-ec4b26883022">
+
+## Slide (Canva): 
+https://www.canva.com/design/DAGn0g5Foo8/SDG4IpI2SL3su4zRb9wYOg/edit?utm_content=DAGn0g5Foo8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
