@@ -27,7 +27,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: hlinh1101/pencraft-backend:latest
+          tags: hlink1101/pencraft-backend:latest
 
       - name: Build & push frontend
         uses: docker/build-push-action@v3
@@ -35,4 +35,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: hlinh1101/pencraft-frontend:latest
+          tags: hlink1101/pencraft-frontend:latest
