@@ -2,37 +2,29 @@
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Chép package.json & tsconfig để cài cả devDependencies
+# 1) Copy manifest và cài cả deps + devDeps
 COPY package*.json tsconfig.json ./
-
-# Cài tất cả (bao gồm typescript, prisma, wrangler…)
 RUN npm ci
 
-# Chép source code
+# 2) Copy code
 COPY . .
 
-# Cho phép prisma CLI chạy được, rồi generate client
-RUN chmod +x node_modules/.bin/prisma \
-    && npx prisma generate
-
-# Transpile TS → JS
-RUN npx tsc
+# 3) Make binaries executable, generate Prisma client và transpile TS
+RUN chmod +x node_modules/.bin/prisma node_modules/.bin/tsc \
+    && npx prisma generate \
+    && npx tsc
 
 # ——— Stage 2: production image ———
 FROM node:18-alpine
 WORKDIR /app
 
-# Chép lại đúng manifest để cài chỉ production deps
+# 4) Cài production-only deps
 COPY package*.json ./
-
-# Cài production-only vào /app/node_modules
 RUN npm ci --omit=dev
 
-# Copy mã JS đã build từ builder
+# 5) Copy mã js đã build
 COPY --from=builder /app/dist ./dist
 
-# Expose port (cần match code của bạn)
+# 6) Expose và run
 EXPOSE 8000
-
-# Chạy file JS đã build
 CMD ["node", "dist/index.js"]
