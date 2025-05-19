@@ -1,22 +1,18 @@
 FROM node:18-alpine
-
 WORKDIR /app
 
-# 1) Cài prisma, ts-node và typescript globally
-RUN npm install -g prisma ts-node typescript
-
-# 2) Copy và cài dependencies
+# 1) Copy package và cài dependencies (bao gồm ts-node, typescript mới thêm)
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# 3) Copy source
+# 2) Copy source
 COPY . .
 
-# 4) Sinh Prisma Client
-RUN chmod +x ./node_modules/.bin/prisma && npx prisma generate
+# 3) Sinh Prisma Client
+RUN npx prisma generate
 
-# 5) Expose
+# 4) Expose port
 EXPOSE 8000
 
-# 6) Chạy TS trực tiếp bằng ts-node/register
+# 5) Khởi chạy bằng ts-node (dùng local module)
 CMD ["node", "-r", "ts-node/register", "src/index.ts"]
